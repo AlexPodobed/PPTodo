@@ -1,0 +1,38 @@
+.todo-page{
+
+
+  .add-new-todo{
+    margin-top: 20px;
+  }
+
+  .actions{
+    display: none;
+  }
+
+  .checkbox{
+    font-size: 16px;
+    margin: 0 0 0 0;
+    padding: 7px 10px 5px 30px;
+
+    &:hover .actions{
+      display: block;
+    }
+
+    &.edit{
+      background: #FFF8E1;
+      border-radius: 5px;
+    }
+
+    &.done{
+      text-decoration: line-through;
+      color: #A69999;
+    }
+    &.edit, &.done {
+      .glyphicon-pencil,{
+        color: rgba(31, 35, 20, 0.44);
+      }
+    }
+
+
+  }
+}

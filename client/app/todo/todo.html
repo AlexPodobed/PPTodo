@@ -1,0 +1,44 @@
+<div class="todo-page">
+
+  <div class="jumbotron text-center">
+    <h1>
+      Todo App
+      <span class="label label-info">{{todos.length || 0}}</span>
+    </h1>
+    <p>Now you can add anything you want in your todo list</p>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="checkbox" ng-repeat="todo in todos" ng-class="{done: todo.done, edit: todo.edit}">
+        <label>
+          <input type="checkbox" ng-click="markAsDone(todo)" ng-checked="todo.done" ng-disabled="todo.edit">
+          {{todo.text}}
+        </label>
+        <div class="actions pull-right">
+          <a href="" ng-click="editTodo(todo)"><span class="glyphicon glyphicon-pencil"></span></a>
+          <a href="" ng-click="removeTodo(todo)"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row text-center add-new-todo">
+    <div class="col-sm-8 col-sm-offset-2">
+      <form name="todoForm" ng-submit="addNewTodo()">
+        <div class="form-group">
+          <input type="text" class="form-control input-lg text-center"
+                 ng-model="formDataModel.text"
+                 name="newTodo"
+                 placeholder="Add new todo item here...">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" ng-disabled="formDataModel.text==''">{{ (editMode) ? 'Save' : 'Add'}}</button>
+        <button type="button" class="btn btn-warning btn-lg" ng-click="cancelEdit()" ng-if="editMode">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
