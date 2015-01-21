@@ -16,29 +16,27 @@ angular.module('todoappApp')
       resetModel();
     }
 
-    resetModel();
+    var editedTodo, backupTodoName, todos;
 
     $scope.editMode = false;
+    resetModel();
 
-    var editedTodo, backupTodoName;
-
-    var todos = Todo.query(function () {
+    todos = Todo.query(function () {
       $scope.todos = todos;
-      console.log(todos);
     });
 
     $scope.markAsDone = function (todo) {
       if(todo.edit) return;
 
       todo.done = !todo.done;
+      Todo.update({"todoID": todo._id}, {done: todo.done}, function(){
+        console.log('Done!');
+      })
     };
 
     $scope.addNewTodo = function () {
-      console.log('submitted')
-
       if($scope.editMode){
         Todo.update({"todoID": editedTodo._id}, {text: editedTodo.text}, function(){
-          console.log('edited')
           cancelEdition();
         })
       } else {
@@ -47,15 +45,12 @@ angular.module('todoappApp')
           $scope.todos.push(todo);
         });
       }
-
-
     };
 
     $scope.editTodo = function(todo){
       if(todo.done){return }
 
       $scope.editMode = true;
-
       $scope.formDataModel = todo;
       if(editedTodo) editedTodo.edit = false;
       todo.edit = true;
@@ -64,7 +59,7 @@ angular.module('todoappApp')
     };
 
     $scope.cancelEdit = function(){
-      editedTodo.text = backupTodoName
+      editedTodo.text = backupTodoName;
       cancelEdition();
     };
 
@@ -72,9 +67,7 @@ angular.module('todoappApp')
         var index = todos.indexOf(todo);
 
         Todo.remove({"todoID": todo._id}, function(){
-            console.log('removed');
             $scope.todos.splice(index, 1);
-
             if($scope.editMode) cancelEdition();
         });
     };
