@@ -3,11 +3,8 @@
 angular.module('todoappApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    },{
       'title': 'Todo',
-      'link': '/todo'
+      'link': '/'
     }];
 
     $scope.isCollapsed = true;
